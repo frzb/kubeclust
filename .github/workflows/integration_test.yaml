@@ -18,4 +18,5 @@ jobs:
         run: vagrant up
       - name: Make cluster
         run: make cluster
-      - name: vagrant ssh -c kubectl get nodes
+      - name: Get nodes
+        run: vagrant ssh -c kubectl get nodes
