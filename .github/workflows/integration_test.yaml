@@ -11,6 +11,10 @@ jobs:
         uses: syphar/restore-virtualenv@v1
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
+      - name: Update apt
+        run: sudo apt update
+      - name: Install VirtualBox
+        run: sudo  apt install -y virtualbox
       # There seems to be not Github Action for setting up Vagrant, so D.I.Y.
       - name: Download Vagrant
         run: curl https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb -o /tmp/vagrant.deb
