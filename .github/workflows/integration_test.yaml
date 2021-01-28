@@ -13,9 +13,9 @@ jobs:
         run: pip install -r requirements.txt
       # There seems to be not Github Action for setting up Vagrant, so D.I.Y.
       - name: Download Vagrant
-        run: curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb -o vagrant.deb
+        run: curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb -o /tmp/vagrant.deb
       - name: Install Vagrant
-        run: sudo dpkg -i vagrant.deb
+        run: sudo dpkg -i /tmp/vagrant.deb
       - name: Spawn Vagrant VMs
         run: vagrant up
       - name: Make cluster
