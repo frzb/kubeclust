@@ -15,7 +15,7 @@ jobs:
       - name: Download Vagrant
         run: curl -O https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb -o vagrant.deb
       - name: Install Vagrant
-        run: dpkg -i vagrant.deb
+        run: sudo dpkg -i vagrant.deb
       - name: Spawn Vagrant VMs
         run: vagrant up
       - name: Make cluster
