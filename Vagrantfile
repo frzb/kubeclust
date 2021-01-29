@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     kubemaster.vm.provision "shell", path: "provision.sh"
     kubemaster.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
-      vb.cpus = 2
+      vb.cpus = 1
     end
   end
 
@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
       worker.vm.provision "shell", path: "provision.sh"
       worker.vm.provider "virtualbox" do |vb|
         vb.memory = "2048"
-        vb.cpus = 2
+        vb.cpus = 1
       end
     end
   end
