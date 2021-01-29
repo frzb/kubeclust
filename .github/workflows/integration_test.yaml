@@ -17,7 +17,7 @@ jobs:
         run: sudo  apt install -y virtualbox
       # There seems to be not Github Action for setting up Vagrant, so D.I.Y.
       - name: Download Vagrant
-        run: curl https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb -o /tmp/vagrant.deb
+        run: curl https://releases.hashicorp.com/vagrant/2.2.14/vagrant_2.2.14_x86_64.deb -o /tmp/vagrant.deb
       - name: Install Vagrant
         run: sudo dpkg -i /tmp/vagrant.deb
       - name: Create custom Vagrantfile to disable VT-x
