@@ -25,11 +25,13 @@ jobs:
           mkdir -v ~/.vagrant.d
           tee ~/.vagrant.d/Vagrantfile << EOF
           Vagrant.configure("2") do |config|
-            config.vm.provider :virtualbox do |vb|
+            config.vm.provider :virtualbox do |vb, override|
               vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
             end
           end
           EOF
+      - name: Validate Vagrantfile
+        run: vagrant validate
       - name: Spawn Vagrant VMs
         run: vagrant up
       - name: Make cluster
