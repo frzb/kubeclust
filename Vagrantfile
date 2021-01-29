@@ -2,9 +2,12 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  
+
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
+    vb.customize ["modifyvm", :id, "--nestedpaging", "off"]
+    vb.customize ["modifyvm", :id, "--vtxvpid", "off"]
+    vb.customize ["modifyvm", :id, "--vtxux", "off"]
   end
 
   config.vm.define "kubemaster" do |kubemaster|
