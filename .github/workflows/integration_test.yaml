@@ -20,6 +20,13 @@ jobs:
         run: curl https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb -o /tmp/vagrant.deb
       - name: Install Vagrant
         run: sudo dpkg -i /tmp/vagrant.deb
+      - name: Create custom Vagrantfile to disable VT-x
+        run: |
+          tee ~/.vagrant.d/Vagrantfile << EOF
+          config.vm.provider :virtualbox do |vb|
+            vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
+          end
+          EOF
       - name: Spawn Vagrant VMs
         run: vagrant up
       - name: Make cluster
