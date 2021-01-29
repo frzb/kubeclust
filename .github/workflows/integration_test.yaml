@@ -22,7 +22,7 @@ jobs:
         run: sudo dpkg -i /tmp/vagrant.deb
       - name: Create custom Vagrantfile to disable VT-x
         run: |
-          install -D ~/.vagrant.d/Vagrantfile 
+          mkdir -v ~/.vagrant.d
           tee ~/.vagrant.d/Vagrantfile << EOF
           config.vm.provider :virtualbox do |vb|
             vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
