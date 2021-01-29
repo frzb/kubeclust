@@ -33,7 +33,7 @@ jobs:
       - name: Validate Vagrantfile
         run: vagrant validate
       - name: Spawn Vagrant VMs
-        run: vagrant up
+        run: vagrant up kubemaster --debug
       - name: Make cluster
         run: make cluster
       - name: Get nodes
