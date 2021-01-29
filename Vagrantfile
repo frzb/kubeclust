@@ -2,6 +2,10 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
+  end
 
   config.vm.define "kubemaster" do |kubemaster|
     kubemaster.vm.hostname = "kubemaster"
@@ -11,7 +15,6 @@ Vagrant.configure("2") do |config|
     kubemaster.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
       vb.cpus = 2
-      vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
     end
   end
 
