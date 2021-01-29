@@ -24,8 +24,10 @@ jobs:
         run: |
           mkdir -v ~/.vagrant.d
           tee ~/.vagrant.d/Vagrantfile << EOF
-          config.vm.provider :virtualbox do |vb|
-            vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
+          Vagrant.configure("2") do |config|
+            config.vm.provider :virtualbox do |vb|
+              vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
+            end
           end
           EOF
       - name: Spawn Vagrant VMs
