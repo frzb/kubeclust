@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
     kubemaster.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
       vb.cpus = 2
+      vb.customize ["modifyvm", :id, "--hwvirtex", "off"]
     end
   end
 
