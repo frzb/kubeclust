@@ -1,4 +1,13 @@
 ---
+# Why using macOS runners?
+# Linux runners at GitHub Actions use the Azure Standard_DS2_v2 instance type.
+# https://docs.microsoft.com/azure/virtual-machines/dv2-dsv2-series#dsv2-series
+# This type has no support for  hardware virtualisation support (VT-x) which
+# makes it impossible to use Vagrant with Virtualbox.
+# Virtualbox is only able to run 32bit OS without VT-x support, without SMP and
+# only one CPU.
+# The macOS runner has VT-x support and comes with Virtualbox and Vagrant preinstalled.
+
 name: build
 on: [push, workflow_dispatch]
 jobs:
@@ -16,7 +25,7 @@ jobs:
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
       - name: Spawn Vagrant VMs
-        run: vagrant up 
+        run: vagrant up
       - name: Make cluster
         run: make cluster
       - name: Wait for node kubemaster to be ready
