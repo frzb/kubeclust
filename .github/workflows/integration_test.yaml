@@ -7,6 +7,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Set up Python 3.9.1
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9.1"
       - name: Create Python 3 virtualenv
         uses: syphar/restore-virtualenv@v1
       - name: Install Python 3 requirements
