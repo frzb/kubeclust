@@ -20,4 +20,4 @@ jobs:
       - name: Make cluster
         run: make cluster
       - name: Get nodes
-        run: vagrant ssh -c 'kubectl get nodes' kubemaster
+        run: vagrant ssh -c 'kubectl wait --for=condition=Ready node/kubemaster'
