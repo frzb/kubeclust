@@ -16,8 +16,8 @@ jobs:
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
       - name: Spawn Vagrant VMs
-        run: vagrant up --parallel
+        run: vagrant up 
       - name: Make cluster
         run: make cluster
       - name: Get nodes
-        run: vagrant ssh -c 'kubectl wait --for=condition=Ready node/kubemaster'
+        run: vagrant ssh -c 'kubectl wait --for=condition=Ready node/kubemaster' kubemaster
