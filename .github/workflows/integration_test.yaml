@@ -16,7 +16,7 @@ jobs:
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
       - name: Spawn Vagrant VMs
-        run: vagrant up
+        run: vagrant up --parallel
       - name: Make cluster
         run: make cluster
       - name: Get nodes
