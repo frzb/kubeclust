@@ -1,18 +1,9 @@
 ---
-# Why using macOS runners?
-# Linux runners at GitHub Actions use the Azure Standard_DS2_v2 instance type.
-# https://docs.microsoft.com/azure/virtual-machines/dv2-dsv2-series#dsv2-series
-# This type has no support for  hardware virtualisation support (VT-x) which
-# makes it impossible to use Vagrant with Virtualbox.
-# Virtualbox is only able to run 32bit OS without VT-x support, without SMP and
-# only one CPU.
-# The macOS runner has VT-x support and comes with Virtualbox and Vagrant preinstalled.
-
 name: build
 on: [push, workflow_dispatch]
 jobs:
   integration_test:
-    runs-on: macos-10.15
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -23,6 +14,12 @@ jobs:
           cache: "pip"
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
+      - name: Install Vagrant
+        run: |
+          sudo apt-get install -y gnupg software-properties-common wget
+          wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update && sudo apt install vagrant
       - name: Spawn Vagrant VMs
         run: vagrant up
       - name: Make cluster
