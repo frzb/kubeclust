@@ -1,5 +1,5 @@
 - name: Drain nodes
-  command: kubectl drain {{ item }} --delete-local-data --force --ignore-daemonsets
+  command: kubectl drain {{ item }} --delete-emptydir-data --force --ignore-daemonsets
   loop:
     - worker1
     - worker2

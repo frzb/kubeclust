@@ -1,15 +1,22 @@
 ---
-- name:  Reset all kubeadm installed state
+- name: Reset all kubeadm installed state
   command: kubeadm reset --force
   ignore_errors: true
 
 - name: Join cluster
   command: '{{ hostvars[groups["master"][0]]["kubeadm_join_cmd"] }}'
 
+- name: Ensure kubelet systemd dropin directory exists
+  file:
+    path: /etc/systemd/system/kubelet.service.d
+    state: directory
+    mode: '0755'
+
 - name: Update kubelet configuration
   template:
     src: templates/kubelet.j2
     dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    mode: '0644'
 
 - name: Reload kubelet configuration
   systemd:
