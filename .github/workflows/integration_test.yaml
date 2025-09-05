@@ -12,16 +12,15 @@ name: build
 on: [push, workflow_dispatch]
 jobs:
   integration_test:
-    runs-on: macos-10.15
+    runs-on: macos-10-15
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Set up Python 3.9.1
-        uses: actions/setup-python@v2
+        uses: actions/checkout@v5
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v6
         with:
-          python-version: "3.9.1"
-      - name: Create Python 3 virtualenv
-        uses: syphar/restore-virtualenv@v1
+          python-version: "3.13"
+          cache: "pip"
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
       - name: Spawn Vagrant VMs
