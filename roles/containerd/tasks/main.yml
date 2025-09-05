@@ -1,0 +1,48 @@
+---
+- name: Install required packages
+  apt:
+    name:
+      - containerd=1.7.27-0ubuntu1~22.04.1
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+    update_cache: yes
+
+- name: Create containerd config directory
+  file:
+    path: /etc/containerd
+    state: directory
+    mode: '0755'
+
+- name: Configure containerd
+  shell: |
+    containerd config default > /etc/containerd/config.toml
+    sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
+  args:
+    creates: /etc/containerd/config.toml
+
+- name: Enable kernel modules
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - overlay
+    - br_netfilter
+
+- name: Configure kernel parameters for Kubernetes
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - { name: 'net.bridge.bridge-nf-call-iptables', value: '1' }
+    - { name: 'net.bridge.bridge-nf-call-ip6tables', value: '1' }
+    - { name: 'net.ipv4.ip_forward', value: '1' }
+
+- name: Restart containerd
+  systemd:
+    name: containerd
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

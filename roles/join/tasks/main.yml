@@ -1,5 +1,5 @@
 ---
-- name:  Reset all kubeadm installed state
+- name: Reset all kubeadm installed state
   command: kubeadm reset --force
   ignore_errors: true
 

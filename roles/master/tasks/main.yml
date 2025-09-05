@@ -3,13 +3,19 @@
   command: kubeadm reset --force
   ignore_errors: true
 
+- name: Pull required container images
+  command: kubeadm config images pull
+
 - name: Initialise Master node
-  command: kubeadm init --apiserver-advertise-address=192.168.99.20 --pod-network-cidr=192.168.0.0/16
-  register: kubeadm_output
+  command: kubeadm init --apiserver-advertise-address=192.168.99.20 --pod-network-cidr=192.168.0.0/16 --node-name=kubemaster
+
+- name: Extract the exact join command
+  shell: kubeadm token create --print-join-command
+  register: join_command
 
 - name: Set fact for kubeadm join command which will be used later
   set_fact:
-    kubeadm_join_cmd: '{{ kubeadm_output.stdout_lines[-2][:-2] }}{{ kubeadm_output.stdout_lines[-1] }}'
+    kubeadm_join_cmd: "{{ join_command.stdout }}"
 
 - name: Create .kube directory
   become: no
