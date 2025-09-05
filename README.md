@@ -17,11 +17,11 @@ Run `vagrant up` to bring up three virtual machines.
 
 The hostnames and IP addresses of the machines are as follows:
 
-kubemaster — 192.168.99.20
+kubemaster — 192.168.56.20
 
-worker1 – 192.168.99.21
+worker1 – 192.168.56.21
 
-worker2 – 192.168.99.22
+worker2 – 192.168.56.22
 
 ### Create kubernetes cluster
 In the virtual environment created earlier, run

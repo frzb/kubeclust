@@ -7,7 +7,7 @@
   command: kubeadm config images pull
 
 - name: Initialise Master node
-  command: kubeadm init --apiserver-advertise-address=192.168.99.20 --pod-network-cidr=192.168.0.0/16 --node-name=kubemaster
+  command: kubeadm init --apiserver-advertise-address=192.168.56.20 --pod-network-cidr=192.168.0.0/16 --node-name=kubemaster
 
 - name: Extract the exact join command
   shell: kubeadm token create --print-join-command
