@@ -1,7 +1,11 @@
 ---
 - name: Install prerequisites
   apt:
-    name: [apt-transport-https, ca-certificates, curl, gpg]
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
     update_cache: yes
 
 - name: Create directory for apt keyrings

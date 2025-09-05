@@ -1,12 +1,7 @@
 ---
-- name: Install required packages
+- name: Install containerd
   apt:
-    name:
-      - containerd=1.7.27-0ubuntu1~22.04.1
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg
+    name: containerd=1.7.27-0ubuntu1~22.04.1
     update_cache: yes
 
 - name: Create containerd config directory
