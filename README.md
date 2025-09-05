@@ -1,7 +1,7 @@
 # Kubeclust
 ![build](https://github.com/kosyfrances/kubeclust/workflows/build/badge.svg)
 
-[Kubeclust](https://kosyfrances.github.io/kubernetes-cluster/) sets up a kubernetes 1.20.2 cluster on three VirtualBox virtual machines (one master and two workers) running Ubuntu 20.04 LTS using [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/).
+[Kubeclust](https://kosyfrances.github.io/kubernetes-cluster/) sets up a kubernetes 1.34.0 cluster on three VirtualBox virtual machines (one master and two workers) running Ubuntu 24.04 LTS using [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/).
 
 ### Prerequisites
 * [Virtual environment](https://docs.python.org/3/library/venv.html) with Python3
@@ -34,9 +34,9 @@ As soon as it is done, you can ssh into kubemaster to see the nodes and the pods
 ```
 vagrant@kubemaster:~$ kubectl get nodes
 NAME         STATUS   ROLES                  AGE     VERSION
-kubemaster   Ready    control-plane,master   7m2s    v1.20.2
-worker1      Ready    <none>                 6m33s   v1.20.2
-worker2      Ready    <none>                 6m33s   v1.20.2
+kubemaster   Ready    control-plane,master   7m2s    v1.34.0
+worker1      Ready    <none>                 6m33s   v1.34.0
+worker2      Ready    <none>                 6m33s   v1.34.0
 
 vagrant@kubemaster:~$ kubectl get pods --all-namespaces
 NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
