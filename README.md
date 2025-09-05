@@ -30,6 +30,11 @@ $ make cluster
 ```
 As soon as it is done, you can ssh into kubemaster to see the nodes and the pods in the cluster. They may take a while to get ready.
 ```
+$ vagrant ssh kubemaster
+```
+
+Get nodes and pods.
+```
 vagrant@kubemaster:~$ kubectl get nodes
 NAME         STATUS   ROLES                  AGE     VERSION
 kubemaster   Ready    control-plane,master   7m2s    v1.34.0
