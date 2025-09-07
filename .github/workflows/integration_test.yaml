@@ -45,9 +45,9 @@ jobs:
         run: |
           VAGRANT_DISABLE_VBOXSYMLINKCREATE=1 vagrant up || true
           for vm in $(VBoxManage list vms | awk '{print $1}' | tr -d '"'); do
-            LOG_PATH=~/VirtualBox\ VMs/"$vm"/Logs/VBox.log
+            LOG_PATH="$HOME/VirtualBox VMs/$vm/Logs/VBox.log"
             echo "==== $vm ===="
-            cat $LOG_PATH
+            [ -f "$LOG_PATH" ] && cat "$LOG_PATH"
           done
 
 
