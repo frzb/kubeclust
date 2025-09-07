@@ -30,6 +30,9 @@ jobs:
 
       - name: Unload KVM module to enable virtualisation with VirtualBox
         run: |
+          ps aux | grep -E 'vbox|qemu'
+          lsmod | grep kvm
+          modprobe -v -r kvm_amd
           modprobe -v -r kvm
          
       - name: Verify virtualisation
