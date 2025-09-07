@@ -46,7 +46,7 @@ jobs:
 
       - name: Spawn Vagrant VMs
         run: |
-          VAGRANT_DISABLE_VBOXSYMLINKCREATE=1 vagrant up || true
+          VAGRANT_DISABLE_VBOXSYMLINKCREATE=1 vagrant up --parallel
           for vm in $(VBoxManage list vms | awk '{print $1}' | tr -d '"'); do
             LOG_PATH="$HOME/VirtualBox VMs/$vm/Logs/VBox.log"
             echo "==== $vm ===="
