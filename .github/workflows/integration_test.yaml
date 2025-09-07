@@ -30,7 +30,7 @@ jobs:
 
       - name: Unload KVM module to enable virtualisation with VirtualBox
         run: |
-          rmmod -v kvm
+          modprobe -v -r kvm
          
       - name: Verify virtualisation
         run: |
