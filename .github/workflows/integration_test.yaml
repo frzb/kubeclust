@@ -19,8 +19,11 @@ jobs:
 
       - name: Install VirtualBox and kernel headers
         run: |
+
+          wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox.gpg
+          echo "deb [signed-by=/usr/share/keyrings/oracle-virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian jammy contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
           sudo apt update
-          sudo apt install -y virtualbox linux-headers-$(uname -r)
+          sudo apt install -y virtualbox-7.1 linux-headers-$(uname -r)
 
       - name: Install Vagrant
         run: |
