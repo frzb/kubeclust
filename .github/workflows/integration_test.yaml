@@ -47,6 +47,7 @@ jobs:
           for vm in $(VBoxManage list vms | awk '{print $1}' | tr -d '"'); do
             LOG_PATH=~/VirtualBox\ VMs/"$vm"/Logs/VBox.log
             echo "==== $vm ===="
+            cat $LOG_PATH
           done
 
 
