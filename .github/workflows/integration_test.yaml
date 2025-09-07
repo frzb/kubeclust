@@ -39,6 +39,7 @@ jobs:
         run: |
           lscpu
           sudo kvm-ok || true
+          sudo lsmod | grep vbox 
 
       - name: Spawn Vagrant VMs
         run: |
@@ -46,7 +47,6 @@ jobs:
           for vm in $(VBoxManage list vms | awk '{print $1}' | tr -d '"'); do
             LOG_PATH=~/VirtualBox\ VMs/"$vm"/Logs/VBox.log
             echo "==== $vm ===="
-            grep -i "Guru" "$LOG_PATH"
           done
 
 
