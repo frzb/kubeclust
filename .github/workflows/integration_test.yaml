@@ -32,8 +32,8 @@ jobs:
         run: |
           ps aux | grep -E 'vbox|qemu'
           lsmod | grep kvm
-          modprobe -v -r kvm_amd
-          modprobe -v -r kvm
+          sudo modprobe -v -r kvm_amd
+          sudo modprobe -v -r kvm
          
       - name: Verify virtualisation
         run: |
