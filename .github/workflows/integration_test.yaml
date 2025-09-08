@@ -18,7 +18,7 @@ jobs:
         run: pip install -r requirements.txt
 
 
-       - name: Use Azure Ubuntu mirror
+      - name: Use Azure Ubuntu mirror
         run: |
           sudo tee /etc/apt/sources.list << EOF
           deb http://azure.archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
