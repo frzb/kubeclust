@@ -20,7 +20,7 @@ jobs:
 
        - name: Use Azure Ubuntu mirror
         run: |
-          sudo tee /etc/apt/sources.list <<'EOF'
+          sudo tee /etc/apt/sources.list << EOF
           deb http://azure.archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
           deb http://azure.archive.ubuntu.com/ubuntu jammy-updates main restricted universe multiverse
           deb http://azure.archive.ubuntu.com/ubuntu jammy-backports main restricted universe multiverse
