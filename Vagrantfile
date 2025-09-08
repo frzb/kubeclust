@@ -26,13 +26,5 @@ Vagrant.configure("2") do |config|
       end
     end
   end
-
-  if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.auto_detect = true
-    config.cache.scope = :box
-    config.cache.synced_folder_opts = {
-    owner: "_apt",
-    }
-  end
 end
 

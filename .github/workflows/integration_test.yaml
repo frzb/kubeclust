@@ -17,6 +17,16 @@ jobs:
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
 
+
+       - name: Use Azure Ubuntu mirror
+        run: |
+          sudo tee /etc/apt/sources.list <<'EOF'
+          deb http://azure.archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
+          deb http://azure.archive.ubuntu.com/ubuntu jammy-updates main restricted universe multiverse
+          deb http://azure.archive.ubuntu.com/ubuntu jammy-backports main restricted universe multiverse
+          deb http://security.ubuntu.com/ubuntu jammy-security main restricted universe multiverse
+          EOF
+
       - name: Add upstream packages source for VirtualBox
         run: |
           wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox.gpg
@@ -31,9 +41,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y --no-install-recommends virtualbox-7.1 vagrant
-
-      - name: Install vagrant vagrant-cachier for apt speed-up
-        run: vagrant plugin install vagrant-cachier
 
       - name: Unload KVM module to enable virtualisation with VirtualBox
         run: |
