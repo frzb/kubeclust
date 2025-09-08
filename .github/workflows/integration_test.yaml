@@ -17,20 +17,20 @@ jobs:
       - name: Install Python 3 requirements
         run: pip install -r requirements.txt
 
-      - name: Install VirtualBox and kernel headers
+      - name: Add upstream packages source for VirtualBox
         run: |
-
           wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox.gpg
           echo "deb [signed-by=/usr/share/keyrings/oracle-virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian jammy contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-          sudo apt update
-          sudo apt install -y virtualbox-7.1
 
-      - name: Install Vagrant
+      - name: Add upstream package source for Vagrant    
         run: |
           wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+      - name: Install VirtualBox and Vagrant
+        run: |
           sudo apt update
-          sudo apt install vagrant
+          sudo apt install -y --no-install-recommends virtualbox-7.1 vagrant
 
       - name: Unload KVM module to enable virtualisation with VirtualBox
         run: |
