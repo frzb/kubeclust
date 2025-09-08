@@ -27,4 +27,9 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  if Vagrant.has_plugin?("vagrant-cachier-ng")
+    config.cache.auto_detect = true
+    config.cache.scope = :box
+  end
 end
+
