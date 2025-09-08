@@ -21,38 +21,28 @@ jobs:
         run: |
 
           wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox.gpg
-          echo "deb [signed-by=/usr/share/keyrings/oracle-virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian jammy contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
           sudo apt update
-          sudo apt install -y virtualbox-7.1 linux-headers-$(uname -r)
+          sudo apt install -y virtualbox-7.1
 
       - name: Install Vagrant
         run: |
           wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt update && sudo apt install vagrant
+          sudo apt install vagrant
 
       - name: Unload KVM module to enable virtualisation with VirtualBox
         run: |
-          ps aux | grep -E 'vbox|qemu'
-          lsmod | grep kvm
-          sudo modprobe -v -r kvm_amd
+          if lsmod | grep -q kvm_amd; then
+            echo 'Unload KVM module for AMD CPU'
+            sudo modprobe -v -r kvm_amd
+          else
+            echo 'Unload KVM module for Intel CPU'
+            sudo modprobe -v -r kvm_intel
+          fi
           sudo modprobe -v -r kvm
 
-      - name: Verify virtualisation
-        run: |
-          lscpu
-          sudo kvm-ok || true
-          sudo lsmod | grep vbox 
-
       - name: Spawn Vagrant VMs
-        run: |
-          VAGRANT_DISABLE_VBOXSYMLINKCREATE=1 vagrant up --parallel
-          for vm in $(VBoxManage list vms | awk '{print $1}' | tr -d '"'); do
-            LOG_PATH="$HOME/VirtualBox VMs/$vm/Logs/VBox.log"
-            echo "==== $vm ===="
-            [ -f "$LOG_PATH" ] && cat "$LOG_PATH"
-          done
-
+        run: vagrant up
 
       - name: Make cluster
         run: make cluster
