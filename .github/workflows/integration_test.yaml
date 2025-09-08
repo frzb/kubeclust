@@ -33,7 +33,7 @@ jobs:
           sudo apt install -y --no-install-recommends virtualbox-7.1 vagrant
 
       - name: Install vagrant vagrant-cachier-ng for apt speed-up
-        run: vagrant plugin install vagrant-cachier-ng
+        run: vagrant plugin install vagrant-cachier
 
       - name: Unload KVM module to enable virtualisation with VirtualBox
         run: |
